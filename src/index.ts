@@ -1,6 +1,7 @@
 import express, {Request,Response} from "express"
 import { growdevers } from "./database/growdevers";
 import { Growdever } from "./models/growdever";
+import { GrowdeverController } from "./controllers/growdever.controller";
 
 const app = express();
 app.use(express.json())
@@ -66,51 +67,7 @@ app.get("/growdever/:id", (req:Request, res: Response) => {
 //Criar um growdever por ID
 //GET https://localhost:3333/growdever
 
-app.post("/growdever", (req:Request, res: Response) => {
-    try {
-        
-        const {id, nome, idade} = req.body
-
-        if(!id) {
-            return res.status(400).send({
-                ok: false,
-                message: "ID não informado"
-        })
-    }
-        
-        if(!nome) {
-            return res.status(400).send({
-                ok: false,
-                message: "ID não informado"
-        })
-    }
-
-        if(!idade) {
-            return res.status(400).send({
-                ok: false,
-                message: "ID não informado"
-        })
-    }
-        
-        const growdever = new Growdever(id, nome, idade);
-
-        growdevers.push(growdever);
-
-        return res.status(201).send({
-            ok:true,
-            message: "Growdever criado com sucesso",
-            data: growdever,
-        })
-    
-    }catch (error:any){
-        return res.status(500).send({
-            ok:false,
-            message: error.toString(),
-        })
-    }
-    
-})
-
+app.post("/growdever", (req ,res) => new GrowdeverController().create(req,res));
 
 app.listen(3333, () => {
     console.log("Api bombando ");
