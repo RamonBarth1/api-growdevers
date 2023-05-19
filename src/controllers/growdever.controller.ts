@@ -13,14 +13,14 @@ export class GrowdeverController{
             if(!nome) {
                 return res.status(400).send({
                     ok: false,
-                    message: "ID não informado"
+                    message: "nome não informado"
             })
         }
     
             if(!idade) {
                 return res.status(400).send({
                     ok: false,
-                    message: "ID não informado"
+                    message: "idade não informada"
             })
         }
     
